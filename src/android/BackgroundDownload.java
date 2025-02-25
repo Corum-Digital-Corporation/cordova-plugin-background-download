@@ -225,7 +225,7 @@ public class BackgroundDownload extends CordovaPlugin {
     private void startAsync(JSONArray args, CallbackContext callbackContext) throws JSONException {
         Download curDownload = Download.create(args, callbackContext);
         curDownload.setTempFileUri(Uri.fromFile(new File(cordova.getContext().getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS),
-        curDownload.targetFileUri.getLastPathSegment() + "." + System.currentTimeMillis())).toString());
+        Uri.parse(curDownload.targetFileUri).getLastPathSegment() + "." + System.currentTimeMillis())).toString());
 
 
            // curDownload.setTempFileUri(Uri.fromFile(new File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS),
