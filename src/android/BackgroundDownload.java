@@ -225,11 +225,11 @@ public class BackgroundDownload extends CordovaPlugin {
     private void startAsync(JSONArray args, CallbackContext callbackContext) throws JSONException {
         Download curDownload = Download.create(args, callbackContext);
         console.log("curDownload File: ", curDownload.targetFileUri);
+        console.log("curDownload DataDir: ", cordova.file.dataDirectory);
         
 
-        curDownload.setTempFileUri(Uri.fromFile(new File(cordova.getContext().getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS),
+        curDownload.setTempFileUri(Uri.fromFile(new File(cordova.file.dataDirectory + "/files/")),
         Uri.parse(curDownload.targetFileUri).getLastPathSegment() + "." + System.currentTimeMillis())).toString());
-
 
            // curDownload.setTempFileUri(Uri.fromFile(new File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS),
            // Uri.parse(targetFileUri).getLastPathSegment() + "." + System.currentTimeMillis())).toString());
@@ -484,18 +484,15 @@ public class BackgroundDownload extends CordovaPlugin {
             }
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                StorageManager storageManager =
-                        cordova.getActivity().getApplicationContext().getSystemService(StorageManager.class);
+                StorageManager storageManager = cordova.getActivity().getApplicationContext().getSystemService(StorageManager.class);
                 UUID appSpecificInternalDirUuid = storageManager.getUuidForPath(destFile.getParentFile());
-                long availableBytes =
-                        storageManager.getAllocatableBytes(appSpecificInternalDirUuid);
+                long availableBytes = storageManager.getAllocatableBytes(appSpecificInternalDirUuid);
                 if (availableBytes < sourceFile.length()) {
                     curDownload.reportError(DownloadManager.ERROR_INSUFFICIENT_SPACE);
                     return;
                 }
 
-                storageManager.allocateBytes(
-                        appSpecificInternalDirUuid, sourceFile.length());
+                storageManager.allocateBytes(appSpecificInternalDirUuid, sourceFile.length());
                 copyFile(curDownload, sourceFile, destFile);
                 copyingSuccess = true;
                 curDownload.getCallbackContext().success();
