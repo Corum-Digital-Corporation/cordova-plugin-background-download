@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-background-download",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Cordova Background Download Plugin",
   "cordova": {
     "id": "cordova-plugin-background-download",
@@ -22,7 +22,7 @@
     "cordova-android",
     "cordova-ios"
   ],
-  "author": "Maarten Manders",
+  "author": "Wess Bechard",
   "license": "Apache 2.0",
   "bugs": {
     "url": "https://github.com/dualinventive/cordova-plugin-background-download/issues"
