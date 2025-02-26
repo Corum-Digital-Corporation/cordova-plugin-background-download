@@ -231,6 +231,8 @@ public class BackgroundDownload extends CordovaPlugin {
         curDownload.setTempFileUri(Uri.fromFile(new File(cordova.file.dataDirectory + "/files/")),
         Uri.parse(curDownload.targetFileUri).getLastPathSegment() + "." + System.currentTimeMillis())).toString());
 
+        Log.w("CorumPlay", "App Path: " + cordova.getApplicationContext.getFilesDir().getPath());
+
            // curDownload.setTempFileUri(Uri.fromFile(new File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS),
            // Uri.parse(targetFileUri).getLastPathSegment() + "." + System.currentTimeMillis())).toString());
 
